@@ -3,10 +3,15 @@
 
 #include "machine/KContext.h"
 #include "machine/KSize.h"
+#include "KMemory.h"
 
+class KCore;
 class KPort;
-class KThread;
+class KPortMap;
+class KScheduler;
+class KSpinLock;
 class KTask;
+class KThread;
 
 #ifndef NULL
 #define NULL 0

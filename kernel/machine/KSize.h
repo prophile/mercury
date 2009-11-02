@@ -16,4 +16,6 @@ const KWord KWordSize = 32;
 #define KWordPopcount __builtin_popcountl
 #define KWordParity __builtin_parityl
 
+extern const void* KHeapBase;
+
 #endif

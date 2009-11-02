@@ -12,7 +12,7 @@ public:
 	virtual ~KSchedulingPolicy () {}
 	
 	const KThread* GetThread () const { return thread; }
-	virtual int GetPriority () = 0;
+	virtual int GetPriority () { return 0; }
 };
 
 class KFixedSchedulingPolicy : public KSchedulingPolicy

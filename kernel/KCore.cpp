@@ -1,6 +1,7 @@
 #include "KCore.h"
 #include "KThread.h"
 #include "KScheduler.h"
+#include "KPort.h"
 #include "machine/KInterrupts.h"
 
 static void dispatch_loop ( KWord word );
@@ -45,10 +46,10 @@ static void dispatch_loop ( KWord word )
 {
 	KCore* core = (KCore*)word;
 	core->Loop();
-	if (activeThread)
+	if (core->GetActiveThread())
 	{
 		// run it
-		KContext::Set(activeThread->GetContext());
+		KContext::Set(core->GetActiveThread()->GetContext());
 	}
 	else
 	{
@@ -57,10 +58,10 @@ static void dispatch_loop ( KWord word )
 	}
 }
 
-void HandleInterrupt ( KWord interrupt )
+void KCore::HandleInterrupt ( KWord interrupt )
 {
 	KContext oldContext;
-	GetInterrupt(oldContext);
+	KContext::GetInterrupt(oldContext);
 	if (activeThread)
 	{
 		activeThread->GetContext() = oldContext;

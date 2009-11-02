@@ -20,6 +20,8 @@ KWord KClockTicksPerSecond ()
 	return 1000;
 }
 
+const void* KHeapBase = (const void*)0x40000;
+
 extern void context_get_interrupt(void*) __asm__("ctx.geti");
 extern void context_get(void*) __asm__("ctx.get");
 extern void context_set(void*) __asm__("ctx.set");
