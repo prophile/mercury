@@ -6,6 +6,9 @@
 struct KContext
 {
 	KWord ip, sp, bp, ax, bx, cx, dx, si, di;
+#ifdef __LP64__
+	KWord r8, r9, r10, r11, r12, r13, r14, r15;
+#endif
 
 	KContext() {}
 	~KContext () {}
@@ -30,6 +33,7 @@ struct KContext
 		ax = bx = cx = dx = si = di = 0;
 #ifdef __LP64__
 		si = argument;
+		r8 = r9 = r10 = r11 = r12 = r13 = r14 = r15 = 0;
 #endif
 	}
 	
