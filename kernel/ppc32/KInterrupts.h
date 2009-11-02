@@ -1,0 +1,11 @@
+#ifndef __KINTERRUPTS__
+#define __KINTERRUPTS__
+
+#include "KSize.h"
+
+extern KWord K_INTERRUPT_CLOCK;
+extern KWord K_INTERRUPT_SYSCALL;
+extern KWord K_INTERRUPT_ILLEGAL_INSTRUCTION;
+extern KWord K_INTERRUPT_PROTECTION_FAULT;
+
+#endif

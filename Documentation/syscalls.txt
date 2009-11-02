@@ -1,0 +1,52 @@
+System calls:
+
+0 -- send a message on port p0, read from address p1 of length p2 bytes, and p4 ports from address p3
+1 -- receive a message on port p0, writing data to p1 up to a maximum of p2 bytes, and writing ports to p3 up to a maximum of p4 ports, blocking for p5 microseconds (0 = return immediately, -1 = wait forever); write success to p1
+2 -- send a message on port p0, read from address p2 of length p3 bytes, and p5 ports from address p4; then block for p7 microseconds waiting for a response on port p1 with data written to p2 up to p4 bytes and up to p6 ports written to p4
+3 -- open a new port for writing, writing number into p0
+4 -- close the port with number p0
+
+On x86_64, params are positioned as follows:
+  n: rdi
+ p0: rsi
+ p1: rax
+ p2: rbx
+ p3: rcx
+ p4: rdx
+ p5: r8
+ p6: r9
+ p7: r10
+int 3 is raised for a syscall. rdi, rsp and rbp will be preserved.
+
+On i386, params are positioned as follows:
+  n: eax
+ p0: ecx
+ p1: edx
+ p2: stack
+ p3: stack
+ p4: stack
+ p5: stack
+ p6: stack
+ p7: stack
+int 3 is raised for a syscall. eax, esp and ebp will be preserved.
+
+On PowerPC, params are positioned as follows:
+  n: r2
+ p0: r3
+ p1: r4
+ p2: r5
+ p3: r6
+ p4: r7
+ p5: r8
+ p6: r9
+ p7: r10
+sc is executed for a syscall. lr and r1 will be preserved.
+
+Each task should expect to start (and start other processes) with the following ports:
+0 - task control port
+1 - main thread control port
+2 - memory management port
+3 - filesystem port
+4 - network port
+5 - io port
+For the latter 4, a 'hello' message would be sent with a new port in each to collect responses.

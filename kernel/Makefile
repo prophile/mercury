@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS=-Os -Wall -ffreestanding -fno-rtti -fno-exceptions -fno-unwind-tables
 
-all: kernel.o
+all: Makefile.dependencies kernel.o
 
 kernel.o: KScheduler.o KPortMap.o KPort.o KThread.o KCore.o KMemory.o machine/Machine.o machine/x86_64.o Entry.o
 	ld -r -o $@ $^
@@ -45,6 +45,8 @@ Makefile.dependencies:
 	$(CXX) -MM KCore.cpp -o - >> Makefile.dependencies
 	$(CXX) -MM Entry.cpp -o - >> Makefile.dependencies
 	$(CXX) -MM machine/Machine.cpp -o - >> Makefile.dependencies
+	ln -s i386 machine
 
 .PHONY clean:
 	rm -f *.o machine/*.o Makefile.dependencies
+	rm machine
